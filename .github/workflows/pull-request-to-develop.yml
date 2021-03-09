@@ -1,0 +1,82 @@
+name: Pull request to develop
+on:
+  pull_request:
+    branches:
+      - develop
+
+env:
+  NODE_ENV: development
+
+jobs:
+  cleanup-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@master
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+  build:
+    name: Run Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.15.4
+      - uses: actions/cache@v1.0.3
+        with:
+          path: ~/.npm
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-
+      - name: Run install
+        run: npm ci
+      - name: Run build
+        run: CI='' npm run build
+      - name: Archive Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: build
+  lint:
+    name: Run Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.15.4
+      - uses: actions/cache@v1.0.3
+        with:
+          path: ~/.npm
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-
+      - name: Run install
+        run: npm ci
+      - name: Run lint
+        run: npm run lint
+  test:
+    name: Run Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.15.4
+      - uses: actions/cache@v1.0.3
+        with:
+          path: ~/.npm
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-
+      - name: Run install
+        run: npm ci
+      - name: Run test
+        run: npm run test:coverage
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
