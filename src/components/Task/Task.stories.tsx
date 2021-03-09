@@ -10,7 +10,7 @@ export default {
 
 const Template: Story<Props> = args => <Task {...args} />;
 
-const taskTemplate: Props['task'] = {
+export const taskTemplate: Props['task'] = {
   id: '1',
   title: 'Test Task',
   state: 'TASK_INBOX',
