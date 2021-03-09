@@ -10,10 +10,10 @@ export default {
 
 const Template: Story<Props> = args => <Task {...args} />;
 
-const taskTemplate = {
+const taskTemplate: Props['task'] = {
   id: '1',
   title: 'Test Task',
-  state: 'TASK_INBOX' as const,
+  state: 'TASK_INBOX',
   updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
