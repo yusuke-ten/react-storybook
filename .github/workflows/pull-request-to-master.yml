@@ -1,8 +1,8 @@
-name: Pull request to develop
+name: Pull request to master
 on:
   pull_request:
     branches:
-      - develop
+      - master
 
 env:
   NODE_ENV: development
