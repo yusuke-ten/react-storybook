@@ -1,12 +1,17 @@
 import React from 'react';
 
-interface Type {
-  task: { id: string; title: string; state: string };
+export interface Props {
+  task: {
+    id: string;
+    title: string;
+    state: 'TASK_INBOX' | 'TASK_PINNED' | 'TASK_ARCHIVED';
+    updatedAt: Date;
+  };
   onArchiveTask: (id: string) => void;
   onPinTask: (id: string) => void;
 }
 
-export const Task: React.VFC<Type> = ({
+export const Task: React.VFC<Props> = ({
   task: { id, title, state },
   onArchiveTask,
   onPinTask,
