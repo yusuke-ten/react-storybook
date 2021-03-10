@@ -10,6 +10,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "test:coverage": "npm test -- --coverage --watchAll=false",
+    "test:updateSnapshot": "npm test -- --updateSnapshot --watchAll=false",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -35,6 +36,7 @@
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.21",
+    "@storybook/addon-storyshots": "^6.1.21",
     "@storybook/node-logger": "^6.1.21",
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.1.21",
@@ -51,6 +53,7 @@
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.1.2",
+    "react-test-renderer": "^17.0.1",
     "typescript": "^4.0.3"
   }
 }
